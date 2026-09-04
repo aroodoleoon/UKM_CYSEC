@@ -1,5 +1,3 @@
-# 📖 KITAB BELAJAR MANDIRI CYBER SECURITY: DARI AWAM JADI PAHAM
-### *Buku Pegangan Otodidak untuk Pemula Mutlak — Tanpa Mentor, Langsung Praktik!*
 > **Penyusun:** Divisi Edukasi UKM Cyber Security (Cysec)  
 > **Edisi:** 1.0 (Panduan Mandiri)  
 > **Prinsip Utama:** *"Keamanan siber itu bukan sihir atau matematika dewa. 80% adalah logika kewaspadaan dan kebiasaan sehari-hari."*

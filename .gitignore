@@ -1,0 +1,16 @@
+# System & Mentor Configuration (Private)
+AGENTS.md
+agents.md
+
+# Internal UKM Planning & Syllabus (Private)
+SILABUS_6_BULAN.md
+silabus_6bulan.md
+silabus_6_bulan.md
+
+# Editor & OS Temporary Files
+.DS_Store
+Thumbs.db
+*.tmp
+.vscode/
+.idea/
+

@@ -1,9 +1,31 @@
+# Modul Pertemuan 3: Dasar Automasi Skrip (Linux Bash & Windows Batch) & Membedah Bahaya Software Bajakan
 
+> **Mata Kuliah / Kegiatan:** Pembekalan Dasar Anggota UKM Cyber Security (Cysec)  
+> **Durasi:** 3 Jam (180 Menit)  
+> **Tingkat Kesulitan:** Pemula (Penutup Bulan 1)  
+> **Prasyarat:** Sudah paham navigasi dasar terminal/CMD dan konsep hak akses file.
+
+---
+
+## 🎙️ Kata Pembuka dari Mentor
+> *"Halo temen-temen UKM Cysec! Nggak berasa kita sudah ada di penghujung Bulan Pertama.*  
+> *Di Pertemuan 1 dan 2, lu sudah berhasil kenalan sama jeroan komputer, menaklukkan layar hitam, sampai paham kenapa kita nggak boleh asal kasih izin file `777`.*  
+>  
+> *Nah, hari ini kita bakal mempelajari dua hal krusial:*  
+> *1. **Automasi Skrip (Linux Bash & Windows Batch):** Bagaimana cara membuat 'robot mini' di komputer—baik untuk pengguna Linux (`.sh`) maupun pengguna native Windows (`.bat`)—yang bisa disuruh kerja mandiri tanpa lu harus ngetik perintah yang sama ratusan kali.*  
+> *2. **Membongkar Mitos Software Bajakan & Crack Game:** Kenapa situs penyedia software gratisan selalu minta lu mematikan Windows Defender, dan apa yang sebenarnya terjadi di balik layar saat lu klik tombol 'Activate Crack'?*  
+>  
+> *Materi hari ini seru banget karena lu bakal mulai merasakan gimana rasanya berpikir seperti seorang 'builder' sekaligus 'investigator'. Yuk kita mulai!"*
+
+---
 
 # 📑 DAFTAR ISI
 1. [Jam 1: Konsep Automasi dari Kacamata Hacker (Analogi Robot Asisten)](#jam-1-konsep-automasi-dari-kacamata-hacker-analogi-robot-asisten)
-2. [Jam 1.5: Anatomi Skrip Bash (Mantra Penulis Robot)](#jam-15-anatomi-skrip-bash-mantra-penulis-robot)
-3. [Jam 2: Hands-on Workshop: Meracik 3 Skrip Pembantu Pertama Kita](#jam-2-hands-on-workshop-meracik-3-skrip-pembantu-pertama-kita)
+2. [Jam 1.5: Linux Bash vs Windows Batch (Perbandingan Dua Dunia)](#jam-15-linux-bash-vs-windows-batch-perbandingan-dua-dunia)
+3. [Jam 2: Hands-on Workshop: Meracik 3 Skrip Pembantu (Versi Linux & Windows)](#jam-2-hands-on-workshop-meracik-3-skrip-pembantu-versi-linux--windows)
+   * [Lab 1: Skrip Pengecek Status Jaringan (Linux `.sh` & Windows `.bat`)](#-lab-1-skrip-pengecek-status-jaringan)
+   * [Lab 2: Skrip Backup Otomatis Berstempel Waktu (Linux `.sh` & Windows `.bat`)](#-lab-2-skrip-backup-otomatis-berstempel-waktu)
+   * [Lab 3: Skrip Audit Keamanan & Hak Akses (Linux `.sh` & Windows `.bat`)](#-lab-3-skrip-audit-keamanan--hak-akses)
 4. [Jam 3: Studi Kasus Nyata: Mengapa Software Bajakan & Cheat Game Itu Jebakan Batman?](#jam-3-studi-kasus-nyata-mengapa-software-bajakan--cheat-game-itu-jebakan-batman)
 5. [Refleksi Akhir Bulan 1 & Persiapan Menuju Dunia Jaringan (Bulan 2)](#refleksi-akhir-bulan-1--persiapan-menuju-dunia-jaringan-bulan-2)
 
@@ -28,13 +50,14 @@ flowchart LR
     end
     
     subgraph OTOMATIS ["Cara Skrip (Cepat & Cerdas)"]
-        S[Bikin File Resep: tugas_harian.sh] --> R[Robot Komputer Mengeksekusi Semuanya dalam 1 Detik!]
+        S[Bikin File Catatan Perintah] --> R[Robot Komputer Mengeksekusi Semuanya dalam 1 Detik!]
     end
 ```
 
 Solusi cerdasnya: **Lu tulis semua perintah itu di selembar kertas catatan.** Besok paginya, lu cukup serahkan kertas itu ke asisten lu dan bilang: *"Jalankan semua yang ada di kertas ini!"*
 
-Nah, kertas catatan perintah itu di dunia Linux disebut **Skrip Shell / Bash Script (`.sh`)**.
+* Di dunia Linux, kertas catatan itu berekstensi **`.sh` (Bash Script)**.
+* Di dunia Windows, kertas catatan itu berekstensi **`.bat` (Batch Script)**.
 
 ---
 
@@ -48,149 +71,178 @@ Nah, kertas catatan perintah itu di dunia Linux disebut **Skrip Shell / Bash Scr
 
 ---
 
-# 📝 JAM 1.5: Anatomi Skrip Bash (Mantra Penulis Robot)
+# ⚖️ JAM 1.5: Linux Bash vs Windows Batch (Perbandingan Dua Dunia)
 
-Sebuah file skrip Bash biasanya berekstensi `.sh` (contoh: `robot_saya.sh`). Di dalamnya ada beberapa komponen utama:
+Biar lu nggak bingung kalau coding di Linux atau di Windows Command Prompt (CMD), ini tabel perbedaan sintaks dasarnya:
 
-### 1. Mantra Shebang (`#!/bin/bash`)
-Baris paling pertama di setiap file skrip **WAJIB** diawali dengan mantra ini:
+| Fitur / Logika | Linux Bash (`.sh`) | Windows Batch (`.bat`) | Analogi Sehari-hari |
+| :--- | :--- | :--- | :--- |
+| **Mantra Pembuka** | `#!/bin/bash` | `@echo off` | Memberitahu komputer jenis bahasa yang dipakai |
+| **Menampilkan Teks** | `echo "Halo Dunia"` | `echo Halo Dunia` | Berbicara / menyapa pengguna di layar |
+| **Menyimpan Kotak (Variabel)** | `NAMA="Wildan"` | `set NAMA=Wildan` | Memasukkan barang ke dalam kotak berlabel |
+| **Memanggil Variabel** | `$NAMA` | `%NAMA%` | Mengambil barang dari kotak |
+| **Menerima Input Pengguna** | `read USERNAME` | `set /p USERNAME="Masukkan nama: "` | Menunggu pengguna mengetik jawaban |
+| **Mengecek Sukses / Gagal** | `$?` (0 = sukses) | `%errorlevel%` (0 = sukses) | Menanyakan laporan apakah perintah berhasil |
+| **Menahan Jendela Layar** | *(Otomatis tetap buka)* | `pause` | Mencegah jendela CMD langsung tutup sekejap mata |
+
+---
+
+# ⚡ JAM 2: Hands-on Workshop: Meracik 3 Skrip Pembantu (Versi Linux & Windows)
+
+Pilih lingkungan yang lu pakai hari ini:
+* Kalau pakai **Git Bash / WSL / Linux**, buat file berekstensi `.sh`.
+* Kalau pakai **Windows Command Prompt (CMD)** biasa, buka Notepad dan simpan sebagai file berekstensi `.bat` (pilih *Save as type: All Files*).
+
+---
+
+### 🛠️ Lab 1: Skrip Pengecek Status Jaringan
+
+Skrip ini bertugas seperti satpam yang mengetuk pintu server target untuk melihat apakah server tersebut sedang hidup (online) atau mati (offline).
+
+#### 🐧 Versi Linux Bash (`cek_target.sh`):
 ```bash
 #!/bin/bash
-```
-* **Artinya:** *"Woi komputer! Tolong terjemahkan dan jalankan seluruh isi catatan di bawah ini menggunakan program Bash Shell yang ada di folder `/bin/bash`."*
 
-### 2. Variabel (Tempat Menyimpan Kotak Barang)
-Variabel itu seperti wadah plastik yang lu tempeli label nama:
-```bash
-NAMA="Wildan"
-TARGET="google.com"
+echo "=== CYSEC NETWORK SCANNER (LINUX BASH) ==="
+echo -n "Masukkan alamat website/IP target: "
+read TARGET
 
-echo "Halo $NAMA, sekarang kita akan mengecek target $TARGET"
-```
-*(Tanda `$` di depan nama variabel digunakan untuk memanggil isi barang di dalam kotak tersebut).*
+echo "[*] Sedang mengetuk pintu target $TARGET..."
+ping -c 1 $TARGET > /dev/null 2>&1
 
-### 3. Menerima Input dari Pengguna (`read`)
-Komputer bisa menanyakan sesuatu dan menunggu jawaban lu:
-```bash
-echo "Siapa nama lu?"
-read NAMA_USER
-echo "Selamat datang di UKM Cysec, $NAMA_USER!"
-```
-
-### 4. Logika Percabangan (Kondisi `if - else`)
-Komputer bisa membuat keputusan sederhana:
-```bash
-if [ "$NILAI" -gt 70 ]; then
-    echo "Lu Lulus Ujian Cysec!"
+if [ $? -eq 0 ]; then
+    echo "[+] BINGO! Target $TARGET sedang ONLINE dan merespons!"
 else
-    echo "Jangan nyerah, pelajari lagi modulnya!"
+    echo "[-] WADUH! Target $TARGET sedang OFFLINE atau memblokir ping!"
+fi
+```
+*Cara jalankan di terminal:* `chmod +x cek_target.sh` lalu `./cek_target.sh`
+
+#### 🪟 Versi Windows Batch (`cek_target.bat`):
+```batch
+@echo off
+title Cysec Network Scanner (Windows Batch)
+echo =========================================
+echo   CYSEC NETWORK SCANNER (WINDOWS BATCH)
+echo =========================================
+set /p TARGET="Masukkan alamat website/IP target: "
+
+echo [*] Sedang mengetuk pintu target %TARGET%...
+ping -n 1 %TARGET% >nul 2>&1
+
+if %errorlevel% equ 0 (
+    echo [+] BINGO! Target %TARGET% sedang ONLINE dan merespons!
+) else (
+    echo [-] WADUH! Target %TARGET% sedang OFFLINE atau memblokir ping!
+)
+
+echo.
+pause
+```
+*Cara jalankan di Windows:* Cukup **klik dua kali (double-click)** pada file `cek_target.bat` atau jalankan dari CMD!
+
+---
+
+### 🛠️ Lab 2: Skrip Backup Otomatis Berstempel Waktu
+
+Sebagai calon praktisi siber, aturan nomor satu adalah: **Sebelum lu otak-atik sistem atau sebelum kena ransomware, CADANGKAN DATA PENTING LU!**
+
+#### 🐧 Versi Linux Bash (`backup_aman.sh`):
+```bash
+#!/bin/bash
+
+TANGGAL=$(date +%Y-%m-%d_%H-%M-%S)
+FOLDER_ASAL="catatan_penting"
+FOLDER_BACKUP="arsip_cadangan"
+
+mkdir -p $FOLDER_ASAL
+mkdir -p $FOLDER_BACKUP
+
+echo "Mencadangkan folder $FOLDER_ASAL pada tanggal $TANGGAL..."
+tar -czf "$FOLDER_BACKUP/backup_$TANGGAL.tar.gz" $FOLDER_ASAL
+
+echo "[+] Pencadangan selesai! File disimpan di $FOLDER_BACKUP/backup_$TANGGAL.tar.gz"
+```
+
+#### 🪟 Versi Windows Batch (`backup_aman.bat`):
+*(Di Windows 10 dan 11 modern, perintah kompresi `tar` sudah tersedia resmi bawaan dari Microsoft!)*
+```batch
+@echo off
+title Backup Otomatis Cysec (Windows Batch)
+echo =========================================
+echo        PENCADANGAN DATA OTOMATIS
+echo =========================================
+
+set FOLDER_ASAL=catatan_penting
+set FOLDER_BACKUP=arsip_cadangan
+
+if not exist %FOLDER_ASAL% mkdir %FOLDER_ASAL%
+if not exist %FOLDER_BACKUP% mkdir %FOLDER_BACKUP%
+
+:: Mengambil format tanggal dan jam lokal Windows
+set TANGGAL=%date:~10,4%-%date:~4,2%-%date:~7,2%_%time:~0,2%-%time:~3,2%
+set TANGGAL=%TANGGAL: =0%
+
+echo [*] Mencadangkan folder %FOLDER_ASAL% ke arsip...
+tar -czf "%FOLDER_BACKUP%\backup_%TANGGAL%.tar.gz" %FOLDER_ASAL%
+
+echo [+] Pencadangan selesai! File disimpan di %FOLDER_BACKUP%\backup_%TANGGAL%.tar.gz
+echo.
+pause
+```
+
+---
+
+### 🛠️ Lab 3: Skrip Audit Keamanan & Hak Akses
+
+#### 🐧 Versi Linux Bash (`audit_izin.sh`):
+Mencari file berizin berbahaya `777` di sistem Linux:
+```bash
+#!/bin/bash
+
+echo "=== AUDIT KEAMANAN HAK AKSES LINUX ==="
+echo "Mencari file berizin berbahaya (777) di folder saat ini..."
+
+BAHAYA=$(find . -type f -perm 0777)
+
+if [ -z "$BAHAYA" ]; then
+    echo "[+] AMAN! Tidak ditemukan file dengan izin 777."
+else
+    echo "[!] PERINGATAN! File berbahaya ditemukan:"
+    echo "$BAHAYA"
+    echo "Segera kunci file tersebut dengan perintah: chmod 644 <nama_file>"
 fi
 ```
 
----
+#### 🪟 Versi Windows Batch (`audit_sistem.bat`):
+Memeriksa apakah script berjalan dengan hak Administrator (*Level Dewa*) serta memantau port koneksi yang sedang terbuka di Windows:
+```batch
+@echo off
+title Audit Keamanan Sistem Windows
+echo =========================================
+echo    AUDIT HAK AKSES SISTEM WINDOWS
+echo =========================================
 
-# ⚡ JAM 2: Hands-on Workshop: Meracik 3 Skrip Pembantu Pertama Kita
+echo [*] Memeriksa apakah script berjalan sebagai Administrator...
+net session >nul 2>&1
+if %errorlevel% equ 0 (
+    echo [!] PERINGATAN: Script berjalan dengan Hak ADMINISTRATOR!
+    echo     Hati-hati, kesalahan perintah bisa merusak sistem Windows lu.
+) else (
+    echo [+] AMAN: Script berjalan sebagai User Biasa (Prinsip Least Privilege).
+)
 
-Sekarang buka terminal lu (Git Bash / WSL Ubuntu / Linux). Kita akan meracik 3 skrip praktis yang langsung berguna untuk keamanan sistem!
+echo.
+echo [*] Daftar Akun Pengguna Lokal di Komputer ini:
+net user
 
----
+echo.
+echo [*] Port Jaringan yang Sedang Mendengarkan (LISTENING):
+netstat -ano | findstr "LISTENING"
 
-### 🛠️ Lab 1: Skrip Pengecek Status Jaringan (`cek_target.sh`)
-Skrip ini bertugas seperti satpam yang mengetuk pintu server target untuk melihat apakah server tersebut sedang hidup atau mati.
-
-1. Buka editor teks `nano`:
-   ```bash
-   nano cek_target.sh
-   ```
-2. Ketik kode berikut di dalamnya:
-   ```bash
-   #!/bin/bash
-
-   echo "=== CYSEC NETWORK SCANNER SEDERHANA ==="
-   echo -n "Masukkan alamat website/IP target: "
-   read TARGET
-
-   echo "[*] Sedang mengetuk pintu target $TARGET..."
-   ping -c 1 $TARGET > /dev/null 2>&1
-
-   if [ $? -eq 0 ]; then
-       echo "[+] BINGO! Target $TARGET sedang ONLINE dan merespons!"
-   else
-       echo "[-] WADUH! Target $TARGET sedang OFFLINE atau memblokir ping!"
-   fi
-   ```
-   *(💡 Catatan: `$?` adalah variabel rahasia Linux yang mengecek apakah perintah sebelumnya sukses bernilai `0` atau gagal bernilai selain `0`).*
-3. Simpan file: Tekan **`CTRL + O`**, lalu **ENTER**, lalu keluar dengan **`CTRL + X`**.
-4. **Beri Izin Eksekusi (Materi Pertemuan 2!):**
-   ```bash
-   chmod +x cek_target.sh
-   ```
-5. Jalankan skrip lu:
-   ```bash
-   ./cek_target.sh
-   ```
-   *(Coba masukkan `google.com` dan perhatikan hasilnya!).*
-
----
-
-### 🛠️ Lab 2: Skrip Backup Otomatis Berstempel Waktu (`backup_aman.sh`)
-Sebagai calon praktisi siber, aturan nomor satu adalah: **Sebelum lu otak-atik sistem atau sebelum kena ransomware, CADANGKAN DATA LU!**
-
-1. Buat file skrip:
-   ```bash
-   nano backup_aman.sh
-   ```
-2. Tulis kodenya:
-   ```bash
-   #!/bin/bash
-
-   TANGGAL=$(date +%Y-%m-%d_%H-%M-%S)
-   FOLDER_ASAL="catatan_penting"
-   FOLDER_BACKUP="arsip_cadangan"
-
-   # Buat folder jika belum ada
-   mkdir -p $FOLDER_ASAL
-   mkdir -p $FOLDER_BACKUP
-
-   echo "Mencadangkan folder $FOLDER_ASAL pada tanggal $TANGGAL..."
-   tar -czf "$FOLDER_BACKUP/backup_$TANGGAL.tar.gz" $FOLDER_ASAL
-
-   echo "[+] Pencadangan selesai! File disimpan di $FOLDER_BACKUP/backup_$TANGGAL.tar.gz"
-   ```
-3. Beri izin eksekusi dan jalankan:
-   ```bash
-   chmod +x backup_aman.sh
-   ./backup_aman.sh
-   ```
-4. Cek folder `arsip_cadangan` dengan `ls -la arsip_cadangan`. File backup terkompresi dengan stempel jam dan tanggal sudah tersimpan rapi!
-
----
-
-### 🛠️ Lab 3: Skrip Pendeteksi File Berbahaya `777` (`audit_izin.sh`)
-Ingat materi Pertemuan 2 kemarin? File berizin `777` adalah pintu gerbang surga bagi hacker. Kita akan membuat skrip pemeriksa otomatis!
-
-1. Buat file:
-   ```bash
-   nano audit_izin.sh
-   ```
-2. Tulis kodenya:
-   ```bash
-   #!/bin/bash
-
-   echo "=== AUDIT KEAMANAN HAK AKSES CYSEC ==="
-   echo "Mencari file berizin berbahaya (777) di folder saat ini..."
-
-   BAHAYA=$(find . -type f -perm 0777)
-
-   if [ -z "$BAHAYA" ]; then
-       echo "[+] AMAN! Tidak ditemukan file dengan izin 777."
-   else
-       echo "[!] PERINGATAN! File berbahaya ditemukan:"
-       echo "$BAHAYA"
-       echo "Segera kunci file tersebut dengan perintah: chmod 644 <nama_file>"
-   fi
-   ```
-3. Beri izin eksekusi: `chmod +x audit_izin.sh` lalu jalankan `./audit_izin.sh`.
+echo.
+pause
+```
 
 ---
 
@@ -224,7 +276,7 @@ Bagi orang awam, tampilan luarnya terlihat seperti proses aktivasi biasa: ada mu
 
 ```mermaid
 flowchart TD
-    CRACK["User Klik: Setup_Crack.exe\n(Run as Administrator)"]
+    CRACK["User Klik: Setup_Crack.exe / crack.bat\n(Run as Administrator)"]
     
     CRACK -->|1. Menempel di Windows| REG["Menambah Entri Registry Startup\n(Agar bangkit lagi tiap PC dinyalakan)"]
     CRACK -->|2. Bajak Browser| STEAL["Mencuri Token Sesi & Cookie Browser\n(Google, Discord, Akun Steam, Akun Kripto)"]
@@ -257,8 +309,8 @@ Sebagai anggota UKM Cyber Security yang beretika, kita tinggalkan kebiasaan memb
 
 Coba renungkan sejenak apa saja yang sudah lu capai dalam 3 pertemuan ini:
 * **Pertemuan 1:** Lu mengenal jeroan komputer (CPU, RAM, Storage) dan membunuh rasa takut pada terminal hitam.
-* **Pertemuan 2:** Lu paham sistem kasta hak akses Linux (`rwx`, `chmod`, `chown`), bahaya akun dewa root, dan membongkar cara membaca file log.
-* **Pertemuan 3:** Lu sudah bisa bikin robot automasi sendiri dengan Bash Script, serta paham kenapa software crack adalah racun berbalut madu.
+* **Pertemuan 2:** Lu paham sistem kasta hak akses Linux (`rwx`, `chmod`, `chown`), bahaya akun dewa root, dan FAQ apakah wajib pakai Linux.
+* **Pertemuan 3:** Lu sudah bisa bikin robot automasi sendiri dengan **Bash Script (`.sh`)** dan **Windows Batch Script (`.bat`)**, serta paham kenapa software crack adalah racun berbalut madu.
 
 ---
 

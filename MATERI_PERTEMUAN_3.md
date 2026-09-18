@@ -1,23 +1,4 @@
-# Modul Pertemuan 3: Dasar Automasi Skrip Bash & Membedah Bahaya Software Bajakan
 
-> **Mata Kuliah / Kegiatan:** Pembekalan Dasar Anggota UKM Cyber Security (Cysec)  
-> **Durasi:** 3 Jam (180 Menit)  
-> **Tingkat Kesulitan:** Pemula (Penutup Bulan 1)  
-> **Prasyarat:** Sudah paham navigasi Linux dasar (`cd`, `ls`, `cat`) dan hak akses file (`chmod +x`).
-
----
-
-## 🎙️ Kata Pembuka dari Mentor
-> *"Halo temen-temen UKM Cysec! Nggak berasa kita sudah ada di penghujung Bulan Pertama.*  
-> *Di Pertemuan 1 dan 2, lu sudah berhasil kenalan sama jeroan komputer, menaklukkan layar hitam terminal, sampai paham kode sandi hak akses `rwxr-xr--`.*  
->  
-> *Nah, hari ini kita bakal mempelajari dua hal krusial:*  
-> *1. **Automasi Skrip (Bash Scripting):** Bagaimana cara membuat 'robot mini' di komputer yang bisa disuruh kerja mandiri tanpa lu harus ngetik perintah yang sama ratusan kali.*  
-> *2. **Membongkar Mitos Software Bajakan & Crack Game:** Kenapa situs penyedia aplikasi gratisan selalu minta lu mematikan antivirus, dan apa yang sebenarnya terjadi di balik layar saat lu klik tombol 'Activate Crack'?*  
->  
-> *Materi hari ini seru banget karena lu bakal mulai merasakan gimana rasanya berpikir seperti seorang 'builder' sekaligus 'investigator'. Yuk kita mulai!"*
-
----
 
 # 📑 DAFTAR ISI
 1. [Jam 1: Konsep Automasi dari Kacamata Hacker (Analogi Robot Asisten)](#jam-1-konsep-automasi-dari-kacamata-hacker-analogi-robot-asisten)
